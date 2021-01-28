@@ -1,13 +1,11 @@
 admin:
-  access_log_path: logs/admin_access.log
+  access_log_path: ./logs/admin_access.log
   address:
     socket_address:
       address: 127.0.0.1
       port_value: 9901
 
-
 static_resources:
-
   listeners:
   - name: listener_0
     address:
@@ -37,7 +35,7 @@ static_resources:
                   prefix: "/"
                 route:
                   host_rewrite_literal: www.envoyproxy.io
-                  cluster: some_service
+                  cluster: service_envoyproxy_io
 
   clusters:
   - name: service_envoyproxy_io
