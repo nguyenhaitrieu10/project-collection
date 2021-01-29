@@ -24,4 +24,18 @@ resources:
                 prefix: "/"
               route:
                 host_rewrite_literal: www.envoyproxy.io
-                cluster: example_proxy_cluster
+                cluster: some_service
+    transport_socket:
+      name: envoy.transport_sockets.tls
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
+        common_tls_context:
+          tls_certificates:
+            certificate_chain:
+              filename: certs/service.example.com.crt
+            private_key:
+              filename: certs/service.example.com.key
+          # validation_context:
+          #   trusted_ca:
+          #     filename: certs/root_ca.crt
+        # require_client_certificate: true
