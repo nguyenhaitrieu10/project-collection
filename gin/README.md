@@ -1,1 +1,1 @@
-go run main.go
+go run gin/main.go
