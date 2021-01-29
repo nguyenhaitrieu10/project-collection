@@ -7,4 +7,5 @@ run-static: validate
 	envoy -c configs/static.yaml --log-path logs/custom.log  --component-log-level upstream:debug,connection:trace,client:info
 
 run-dynamic:
+	# Please run go gin first
 	envoy -c configs/dynamic-filesystem.yaml --log-path logs/custom.log  --log-level info
