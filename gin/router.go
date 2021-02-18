@@ -31,15 +31,15 @@ func LoggerCustom() gin.HandlerFunc {
 	}
 }
 
-func main() {
+func SetupRouter() *gin.Engine {
 	// Write logs to files
 	gin.DisableConsoleColor()
 	f, err := os.Create("logs/gin.log")
 	if err != nil {
 		fmt.Println(err)
-		return
+	} else {
+		gin.DefaultWriter = io.MultiWriter(f)
 	}
-	gin.DefaultWriter = io.MultiWriter(f)
 
 	// router := gin.Default()
 	router := gin.New()
@@ -161,5 +161,18 @@ func main() {
 	// 	testing.GET("/analytics", analyticsEndpoint)
 	// }
 
-	router.Run("0.0.0.0:9000")
+	return router
+}
+
+func main() {
+	router := SetupRouter()
+	s := &http.Server{
+		Addr:           "0.0.0.0:9000",
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	s.ListenAndServe()
+	// router.Run("0.0.0.0:9000")
 }
