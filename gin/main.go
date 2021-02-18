@@ -1,76 +1,47 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 )
 
+// Booking contains binded and validated data.
+type Booking struct {
+	CheckIn  time.Time `form:"check_in" binding:"required,bookabledate" time_format:"2006-01-02"`
+	CheckOut time.Time `form:"check_out" binding:"required,gtfield=CheckIn" time_format:"2006-01-02"`
+}
+
+var bookableDate validator.Func = func(fl validator.FieldLevel) bool {
+	date, ok := fl.Field().Interface().(time.Time)
+	if ok {
+		today := time.Now()
+		if today.After(date) {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
-	router := gin.Default()
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	route := gin.Default()
 
-	//  /user/john
-	router.GET("/user/:name", func(c *gin.Context) {
-		name := c.Param("name")
-		c.String(http.StatusOK, "Hello %s", name)
-	})
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("bookabledate", bookableDate)
+	}
 
-	//  /welcome?firstname=Jane&lastname=Doe
-	router.GET("/welcome", func(c *gin.Context) {
-		firstname := c.DefaultQuery("firstname", "Guest")
-		lastname := c.Query("lastname")
-		c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
-	})
+	route.GET("/bookable", getBookable)
+	route.Run(":8085")
+}
 
-	// curl -X POST localhost:8080/form_post -H "Content-Type: application/json"   --data '{"message":"xyz"}'
-	router.POST("/form_post", func(c *gin.Context) {
-		message := c.PostForm("message")
-		nick := c.DefaultPostForm("nick", "anonymous")
-
-		c.JSON(200, gin.H{
-			"status":  "posted",
-			"message": message,
-			"nick":    nick,
-		})
-	})
-
-	// curl -X POST localhost:8080/post -H "Content-Type: application/x-www-form-urlencoded"   --data 'name=manu&message=this_is_great'
-	router.POST("/post", func(c *gin.Context) {
-		id := c.Query("id")
-		page := c.DefaultQuery("page", "0")
-		name := c.PostForm("name")
-		message := c.PostForm("message")
-		str := fmt.Sprintf("id: %s; page: %s; name: %s; message: %s", id, page, name, message)
-		c.String(http.StatusOK, str)
-	})
-
-	// View http://localhost:8080/public/index.html
-	router.MaxMultipartMemory = 8 << 20 // 8 MiB
-	router.Static("/public", "./public")
-	router.POST("/upload", func(c *gin.Context) {
-		form, err := c.MultipartForm()
-		if err != nil {
-			c.String(http.StatusBadRequest, fmt.Sprintf("get form err: %s", err.Error()))
-			return
-		}
-		files := form.File["files"]
-
-		for _, file := range files {
-			filename := "./public/images/" + file.Filename
-			if err := c.SaveUploadedFile(file, filename); err != nil {
-				c.String(http.StatusBadRequest, fmt.Sprintf("upload file err: %s", err.Error()))
-				return
-			}
-		}
-
-		c.String(http.StatusOK, fmt.Sprintf("Uploaded successfully %d files", len(files)))
-	})
-
-	router.Run("0.0.0.0:8080")
+func getBookable(c *gin.Context) {
+	var b Booking
+	if err := c.ShouldBindWith(&b, binding.Query); err == nil {
+		c.JSON(http.StatusOK, gin.H{"message": "Booking dates are valid!"})
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
 }

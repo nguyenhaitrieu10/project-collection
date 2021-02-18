@@ -1,0 +1,52 @@
+{
+  "service_strategies": [
+    {
+      "type": "probabilistic",
+      "param": 0,
+      "service": "NOW_API_APP_QA",
+      "operation_strategies": [
+        {
+          "operation": "api/cart/set_items",
+          "type": "probabilistic",
+          "param": 1
+        },
+        {
+          "operation": "api/cart/check_calculate_shipping",
+          "type": "probabilistic",
+          "param": 1
+        },
+        {
+          "operation": "api/cart/edit_dish",
+          "type": "probabilistic",
+          "param": 1
+        },
+        {
+          "operation": "api/cart/set_group_items",
+          "type": "probabilistic",
+          "param": 1
+        },
+        {
+          "operation": "api/order/submit",
+          "type": "probabilistic",
+          "param": 1
+        },
+        {
+          "operation": "api/cart/calculate_shipping",
+          "type": "probabilistic",
+          "param": 1
+        }
+      ]
+    },
+    {
+      "service_strategies": [],
+      "default_strategy": {
+        "type": "probabilistic",
+        "param": 1
+      }
+    }
+  ],
+  "default_strategy": {
+    "type": "probabilistic",
+    "param": 1
+  }
+}

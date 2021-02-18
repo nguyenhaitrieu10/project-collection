@@ -1,5 +1,4 @@
 # envoy --version
-
 validate:
 	envoy --mode validate -c configs/static.yaml --log-path logs/custom.log
 
