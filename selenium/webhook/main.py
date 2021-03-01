@@ -38,7 +38,7 @@ def main():
 
 
     driver = webdriver.Chrome()
-    driver.get(GIT_URL)
+    driver.get(GITLAB_URL)
     eUser = driver.find_element_by_id("user_login")
     ePwd = driver.find_element_by_id("user_password")
     eUser.send_keys(os.getenv("GITLAB_USER", ""))
