@@ -2,4 +2,7 @@ venv
 envoy/logs/*
 tmp1.yaml
 tmp2.yaml
+tmp.yaml
+tmp.yml
+tmp.json
 gin/logs/*
