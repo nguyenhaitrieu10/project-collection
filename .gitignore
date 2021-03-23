@@ -1,8 +1,20 @@
+#Python
 venv
+
+#Envoy
 envoy/logs/*
+
+# Gin
+gin/logs/*
+
+# Rust - Cargo
+debug
+target
+Cargo.lock
+
+# Other
 tmp1.yaml
 tmp2.yaml
 tmp.yaml
 tmp.yml
 tmp.json
-gin/logs/*
