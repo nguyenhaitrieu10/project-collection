@@ -1,0 +1,10 @@
+[sources.in]
+  type = "stdin"
+
+[sinks.out]
+  inputs = ["in"]
+  type = "console"
+  encoding.codec = "text"
+
+# Run: 
+# echo 'Hello World!' | vector --config ./hello-world.toml
