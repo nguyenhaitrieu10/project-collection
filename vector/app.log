@@ -1,0 +1,12 @@
+{"level":"debug","@t":"21-04-02T09:10:02.644","caller_func":"src/main.go:46","msg":"Starting GRPC1 Http Server\n","pid":7}
+{"level":"fatal","@t":"21-04-02T09:10:02.657","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"debug","@t":"21-04-02T09:15:11.614","caller_func":"src/main.go:46","msg":"Starting GRPC1 Http Server\n","pid":7}
+{"level":"fatal","@t":"21-04-02T09:15:11.627","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"debug","@t":"21-04-02T09:20:20.595","caller_func":"src/main.go:46","msg":"Starting GRPC1 Http Server\n","pid":7}
+{"level":"fatal","@t":"21-04-02T09:20:20.609","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"debug","@t":"21-04-02T09:25:22.639","caller_func":"src/main.go:46","msg":"Starting GRPC1 Http Server\n","pid":7}
+{"level":"fatal","@t":"21-04-02T09:25:22.652","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"debug","@t":"21-04-02T09:30:31.617","caller_func":"src/main.go:46","msg":"Starting GRPC1 Http Server\n","pid":7}
+{"level":"fatal","@t":"21-04-02T09:30:31.678","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"fatal","@t":"21-04-02T09:30:31.678","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}
+{"level":"fatal","@t":"21-04-02T09:30:31.678","caller_func":"util/error_handler.go:13","msg":"dial tcp4: lookup redis-proxy-test.coredns on 10.96.0.10:53: no such host","pid":7}

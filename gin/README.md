@@ -1,1 +1,1 @@
-go run gin/main.go
+go run router.go

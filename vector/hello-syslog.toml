@@ -1,20 +1,26 @@
-[sources.generate_syslog]
-  type = "generator"
-  format = "syslog"
-  count = 100
+data_dir = "/home/tony/working/project-collection/vector"
 
-[transforms.remap_syslog]
-  inputs = [ "generate_syslog"]
-  type = "remap"
-  source = '''
-    structured = parse_syslog!(.message)
-    . = merge(., structured)
-  '''
+[sources.app]
+  type = "file"
+  include = [
+    # Debug logs
+    "/home/tony/working/project-collection/vector/app.log",
+  ]
+  read_from = "beginning"
 
-[sinks.emit_syslog]
-  inputs = ["remap_syslog"]
+[transforms.my_transform_id]
+  type = "json_parser"
+  inputs = ["app"]
+  field = "msg"
+  drop_field = false
+  drop_invalid = false
+
+[sinks.out]
+  inputs = ["my_transform_id"]
   type = "console"
-  encoding.codec = "json"
+  encoding.codec = "text"
+
+
 
 # Run: 
 # vector --config ./hello-syslog.toml
